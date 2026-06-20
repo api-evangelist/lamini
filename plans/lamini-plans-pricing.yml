@@ -1,0 +1,101 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Lamini
+providerId: lamini
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: true
+tags:
+- AI
+- LLM
+- Fine-Tuning
+- Memory Tuning
+- Inference
+- Plans
+description: >-
+  Lamini offers a self-service, pay-as-you-go tier (Lamini On-Demand) for
+  running inference and tuning jobs on its hosted GPU cluster, plus a custom
+  Enterprise tier for dedicated, reserved, or on-premises deployments. On-Demand
+  bills a flat per-token inference rate and a per-tuning-step rate; new accounts
+  receive free credits to start. Enterprise pricing is negotiated with sales.
+notes: >-
+  Published On-Demand rates were a flat $0.50 per 1M inference tokens (covering
+  input, output, and JSON/typed output) and approximately $1 per tuning step on
+  a single GPU, with linear multipliers for multi-GPU burst tuning, plus $300
+  in free credit for new users. Verify current rates on the Lamini pricing page
+  during reconciliation as on-demand rates and credits change.
+sources:
+- https://www.lamini.ai/pricing
+- https://www.lamini.ai/blog/lamini-on-demand-300-in-free-credit
+- https://docs.lamini.ai
+plans:
+- id: lamini-on-demand
+  name: Lamini On-Demand
+  type: usage
+  description: >-
+    Self-service, pay-as-you-go inference and tuning on Lamini's hosted GPU
+    cluster, metered per token and per tuning step, with free starting credit.
+  entries:
+  - label: Inference Tokens
+    name: inference_tokens
+    type: usage
+    metric: tokens
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1000000
+    price: $0.50 per 1M tokens (input, output, and JSON output)
+    userMultiplied: false
+  - label: Tuning Step
+    name: tuning_step
+    type: usage
+    metric: steps
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: ~$1 per tuning step on 1 GPU (linear multiplier for burst/multi-GPU)
+    userMultiplied: false
+  - label: Free Credit
+    name: free_credit
+    type: credit
+    metric: usd
+    limit: 300
+    timeFrame: lifetime
+    geo: global
+    unit: 1
+    price: $300 in free credit for new accounts
+    userMultiplied: false
+  elements:
+  - name: Inference Completions
+  - name: Memory Tuning
+  - name: Fine-Tuning
+  - name: Classify
+  - name: Embeddings
+- id: lamini-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Dedicated, reserved-capacity, VPC, or on-premises deployments with volume
+    commitments, security and compliance controls, and dedicated support.
+    Contact Lamini sales.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Reserved / Dedicated GPU Capacity
+  - name: On-Premises Deployment
+  - name: Volume Pricing
+  - name: Dedicated Support
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

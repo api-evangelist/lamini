@@ -1,0 +1,200 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lamini Platform API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Inference",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate a completion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lamini.ai/v1/completions",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"prompt\": \"What is the capital of France?\",\n  \"model_name\": \"meta-llama/Llama-3.1-8B-Instruct\",\n  \"output_type\": null,\n  \"max_new_tokens\": 128\n}"
+            }
+          },
+          "docs": "Generate a text completion from a base or tuned model. Supports a typed output schema via output_type for structured generation."
+        },
+        {
+          "info": {
+            "name": "Generate a streaming completion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lamini.ai/v3/streaming_completions",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"prompt\": \"Write a short poem about APIs.\",\n  \"model_name\": \"meta-llama/Llama-3.1-8B-Instruct\",\n  \"max_new_tokens\": 256\n}"
+            }
+          },
+          "docs": "Generate a completion as an incremental stream of token chunks for the provided prompt and model."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Fine-Tuning",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Submit a tuning job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lamini.ai/v1/train",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"model_name\": \"meta-llama/Llama-3.1-8B-Instruct\",\n  \"dataset_id\": \"your-dataset-id\",\n  \"train_type\": \"memory_rag\"\n}"
+            }
+          },
+          "docs": "Submit a fine-tuning or Memory Tuning job for a base model against an uploaded dataset. The train_type field selects the tuning method."
+        },
+        {
+          "info": {
+            "name": "List tuning jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lamini.ai/v1/train/jobs"
+          },
+          "docs": "List tuning jobs for the authenticated account."
+        },
+        {
+          "info": {
+            "name": "Get a tuning job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lamini.ai/v1/train/jobs/{job_id}"
+          },
+          "docs": "Retrieve the status and metadata of a single tuning job."
+        },
+        {
+          "info": {
+            "name": "Cancel a tuning job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lamini.ai/v1/train/jobs/{job_id}/cancel"
+          },
+          "docs": "Cancel a running tuning job by its job id."
+        },
+        {
+          "info": {
+            "name": "Resume a tuning job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lamini.ai/v1/train/jobs/{job_id}/resume"
+          },
+          "docs": "Resume a previously paused or cancelled tuning job."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Classify",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Classify text",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lamini.ai/v1/classifier/{model_id}/classification",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"prompt\": \"My order never arrived and I want a refund.\",\n  \"top_n\": 3\n}"
+            }
+          },
+          "docs": "Classify one or more text prompts with a trained classifier model, returning scored class labels."
+        },
+        {
+          "info": {
+            "name": "Predict a class",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lamini.ai/v1/classifier/{model_id}/prediction",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"prompt\": \"My order never arrived and I want a refund.\"\n}"
+            }
+          },
+          "docs": "Return the single predicted class for one or more text prompts using a trained classifier model."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Embeddings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate embeddings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lamini.ai/v1/embedding",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"prompt\": [\"The quick brown fox.\", \"Lorem ipsum dolor sit amet.\"]\n}"
+            }
+          },
+          "docs": "Encode one or more text prompts into embedding vectors for similarity search, retrieval, and indexing."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Platform",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get platform version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lamini.ai/v1/version"
+          },
+          "docs": "Return server and client version metadata and the list of available API endpoints and their versions."
+        }
+      ]
+    }
+  ]
+}

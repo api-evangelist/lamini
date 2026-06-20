@@ -1,0 +1,106 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Lamini
+providerId: lamini
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: true
+tags:
+- AI
+- LLM
+- Fine-Tuning
+- Memory Tuning
+- Inference
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Lamini Platform spend. On the On-Demand tier, Lamini bills a
+  flat per-token inference rate and a per-tuning-step rate, drawing down prepaid
+  or free credit. Enterprise spend is a negotiated contract for reserved or
+  on-premises GPU capacity. The two primary cost drivers are inference token
+  volume and tuning steps (which scale with dataset size, epochs, and GPU count).
+notes: >-
+  On-Demand rates and free-credit amounts change; verify against the Lamini
+  pricing page during reconciliation. Enterprise costs are contract-based and
+  not metered the same way as On-Demand.
+sources:
+- https://www.lamini.ai/pricing
+- https://www.lamini.ai/blog/lamini-on-demand-300-in-free-credit
+- https://docs.lamini.ai
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Lamini
+serviceCategory: AI and Machine Learning
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: Lamini Platform
+  ServiceCategory: AI and Machine Learning
+  ProviderName: Lamini
+  PublisherName: Lamini
+  InvoiceIssuerName: Lamini
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Usage-Based
+meters:
+- name: inference_tokens
+  description: Tokens generated and consumed via /v1/completions, billed at a flat per-1M-token rate.
+  unit: tokens
+  aggregation: sum
+  dimensions:
+  - account
+  - model
+  - api
+- name: tuning_steps
+  description: Tuning steps executed by /v1/train jobs, billed per step and scaling with dataset size, epochs, and GPU count.
+  unit: steps
+  aggregation: sum
+  dimensions:
+  - account
+  - model
+  - job
+- name: embedding_requests
+  description: Embedding generation requests via /v1/embedding.
+  unit: requests
+  aggregation: sum
+  dimensions:
+  - account
+  - api
+- name: classification_requests
+  description: Classification and prediction requests via the /v1/classifier endpoints.
+  unit: requests
+  aggregation: sum
+  dimensions:
+  - account
+  - model
+- name: free_credit
+  description: Free credit granted to new accounts, drawn down before paid usage.
+  unit: usd
+  aggregation: sum
+  dimensions:
+  - account
+principles:
+- name: Visibility
+  description: Track On-Demand credit burn and inference-token / tuning-step usage per project and API key.
+- name: Allocation
+  description: Tag API keys and tuning jobs per workload/team; map to internal cost centers.
+- name: Optimization
+  description: Use Memory Tuning to embed knowledge instead of long prompts, right-size base models, and reserve Enterprise capacity for steady high-volume workloads.
+- name: Accountability
+  description: Assign owners per project/key; review token and tuning-step spend against budget and free-credit balance.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

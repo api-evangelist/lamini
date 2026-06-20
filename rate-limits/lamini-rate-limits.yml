@@ -1,0 +1,63 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Lamini
+providerId: lamini
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: false
+tags:
+- AI
+- LLM
+- Fine-Tuning
+- Memory Tuning
+- Inference
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  The Lamini Platform meters inference and tuning usage per account and is
+  governed primarily by available credit / spend on the On-Demand tier and by
+  reserved GPU capacity on Enterprise. Concurrent inference requests and
+  tuning jobs are bounded by account capacity rather than fixed published
+  per-minute request quotas. Specific numeric limits are not publicly
+  documented and are not reconciled in this artifact.
+notes: >-
+  Lamini does not publish a fixed per-minute request/token rate table the way
+  OpenAI-style providers do; throughput is bounded by On-Demand credit and
+  Enterprise reserved capacity. Confirm any concurrency or job limits with
+  Lamini support during reconciliation.
+sources:
+- https://docs.lamini.ai
+- https://www.lamini.ai/pricing
+responseCodes:
+  throttled: 429
+limits:
+- name: Concurrent Inference Requests
+  scope: account
+  metric: requests
+  limit: see provider documentation
+  notes: Inference concurrency bounded by account capacity and credit/tier.
+- name: Concurrent Tuning Jobs
+  scope: account
+  metric: jobs
+  limit: see provider documentation
+  notes: Number of simultaneous tuning jobs bounded by GPU capacity / tier.
+- name: Tuning Throughput
+  scope: account
+  metric: steps
+  limit: see provider documentation
+  notes: Burst tuning scales linearly across multiple GPUs/nodes on On-Demand.
+- name: Credit / Spend Ceiling
+  scope: account
+  metric: usd
+  limit: see provider documentation
+  notes: On-Demand usage is bounded by available prepaid or free credit.
+policies:
+- name: Capacity-Based Limits
+  description: Throughput scales with On-Demand credit and Enterprise reserved GPU capacity rather than fixed per-minute quotas.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on 429 responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

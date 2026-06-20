@@ -1,0 +1,121 @@
+aid: lamini
+url: https://raw.githubusercontent.com/api-evangelist/lamini/refs/heads/main/apis.yml
+name: Lamini
+kind: company
+description: Lamini is an enterprise LLM platform for fine-tuning, tuning, and serving
+  custom open models. Its Memory Tuning approach embeds factual recall into models to
+  reduce hallucination, and the platform exposes a REST API for inference (completions),
+  fine-tuning jobs, classification, and embeddings over open base models, deployable
+  in Lamini's cloud, on-demand GPU cluster, or on-premises.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- AI
+- LLM
+- Fine-Tuning
+- Memory Tuning
+- Inference
+created: '2026-06-20'
+modified: '2026-06-20'
+specificationVersion: '0.19'
+apis:
+- aid: lamini:lamini-inference-completions-api
+  name: Lamini Inference Completions API
+  tags:
+  - Inference
+  - Completions
+  - LLM
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.lamini.ai/api/
+  baseURL: https://api.lamini.ai
+  properties:
+  - url: https://docs.lamini.ai/inference/quick_start/
+    type: Documentation
+  - url: https://docs.lamini.ai/api/
+    type: APIReference
+  - url: openapi/lamini-openapi.yml
+    type: OpenAPI
+  - url: collections/lamini.postman_collection.json
+    type: PostmanCollection
+  description: Generate text completions from open base or tuned models via POST /v1/completions,
+    with structured (typed) output via output_type, plus streaming completions at
+    /v3/streaming_completions and an OpenAI-compatible interface under /inf.
+- aid: lamini:lamini-fine-tuning-memory-tuning-api
+  name: Lamini Fine-Tuning & Memory Tuning API
+  tags:
+  - Fine-Tuning
+  - Memory Tuning
+  - Training
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.lamini.ai/api/
+  baseURL: https://api.lamini.ai
+  properties:
+  - url: https://docs.lamini.ai/tuning/quick_start/
+    type: Documentation
+  - url: https://docs.lamini.ai/api/
+    type: APIReference
+  - url: openapi/lamini-openapi.yml
+    type: OpenAPI
+  - url: collections/lamini.postman_collection.json
+    type: PostmanCollection
+  description: Submit and manage tuning jobs against open base models via POST /v1/train,
+    supporting full fine-tuning and Lamini Memory Tuning (train_type), with job listing,
+    status, cancel, and resume under /v1/train/jobs, plus dataset upload helpers.
+- aid: lamini:lamini-classify-api
+  name: Lamini Classify API
+  tags:
+  - Classify
+  - Classification
+  - LLM Classifier
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.lamini.ai/api/
+  baseURL: https://api.lamini.ai
+  properties:
+  - url: https://docs.lamini.ai/classify/quick_start/
+    type: Documentation
+  - url: https://docs.lamini.ai/api/
+    type: APIReference
+  - url: openapi/lamini-openapi.yml
+    type: OpenAPI
+  - url: collections/lamini.postman_collection.json
+    type: PostmanCollection
+  description: Run LLM-based text classification against a trained classifier model via
+    POST /v1/classifier/{model_id}/classification for scored labels, or
+    /v1/classifier/{model_id}/prediction for a single predicted class.
+- aid: lamini:lamini-embeddings-api
+  name: Lamini Embeddings API
+  tags:
+  - Embeddings
+  - Vectors
+  - Retrieval
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.lamini.ai/api/
+  baseURL: https://api.lamini.ai
+  properties:
+  - url: https://docs.lamini.ai/api/
+    type: Documentation
+  - url: https://docs.lamini.ai/api/
+    type: APIReference
+  - url: openapi/lamini-openapi.yml
+    type: OpenAPI
+  - url: collections/lamini.postman_collection.json
+    type: PostmanCollection
+  description: Encode one or more text prompts into embedding vectors via POST /v1/embedding
+    for similarity search, retrieval, and Memory RAG indexing workflows.
+common:
+- type: GitHubOrganization
+  url: https://github.com/lamini-ai
+- type: LinkedIn
+  url: https://www.linkedin.com/company/lamini-ai
+- type: Website
+  url: https://www.lamini.ai
+- type: Documentation
+  url: https://docs.lamini.ai
+- type: Plans
+  url: plans/lamini-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/lamini-rate-limits.yml
+- type: FinOps
+  url: finops/lamini-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

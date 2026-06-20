@@ -1,0 +1,94 @@
+aid: lamini
+name: Lamini
+review:
+  question: Does Lamini expose a documented public WebSocket or SSE streaming API?
+  answer: false
+  date: '2026-06-20'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    Per API Evangelist scope (2026-05-29), HTTP Server-Sent Events (SSE) is
+    in-scope for AsyncAPI modeling. Lamini does offer streaming completions via
+    POST /v3/streaming_completions, but the Lamini Python client consumes it as
+    an HTTP request that returns incrementally; there is no documented public
+    SSE (text/event-stream) contract or WebSocket (ws://, wss://) endpoint
+    published in the REST API reference. No AsyncAPI document was created
+    because no SSE or WebSocket protocol surface is documented.
+findings:
+  summary: |
+    Lamini is an enterprise LLM platform exposing a REST (HTTPS) API at
+    https://api.lamini.ai for inference (completions), fine-tuning and Memory
+    Tuning jobs, classification, and embeddings. Authentication is via
+    Authorization: Bearer <API_KEY> plus an optional Lamini-Version header.
+    A streaming completions endpoint exists at POST /v3/streaming_completions,
+    but it is delivered as an incremental HTTP response consumed by the Lamini
+    client, not as a documented SSE event stream or WebSocket. No realtime,
+    bidirectional, or audio WebSocket endpoint is documented. Endpoints below
+    are confirmed from the official lamini-ai/lamini Python client source and
+    the Lamini REST API docs.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.lamini.ai
+      documented: true
+    - protocol: HTTP-Streaming
+      scheme: https
+      note: POST /v3/streaming_completions returns an incremental HTTP response. Not a documented SSE (text/event-stream) contract and not WebSocket.
+      documented: true
+    - protocol: SSE
+      scheme: https
+      documented: false
+      note: No documented Server-Sent Events (text/event-stream) contract is published.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in the Lamini REST API reference or Python client as of the review date.
+  endpointsConfirmedRest:
+    - POST https://api.lamini.ai/v1/completions
+    - POST https://api.lamini.ai/v3/streaming_completions
+    - POST https://api.lamini.ai/v1/embedding
+    - POST https://api.lamini.ai/v1/train
+    - GET  https://api.lamini.ai/v1/train/jobs
+    - GET  https://api.lamini.ai/v1/train/jobs/{job_id}
+    - POST https://api.lamini.ai/v1/train/jobs/{job_id}/cancel
+    - POST https://api.lamini.ai/v1/train/jobs/{job_id}/resume
+    - POST https://api.lamini.ai/v1/train/jobs/cancel
+    - POST https://api.lamini.ai/v1/classifier/{model_id}/classification
+    - POST https://api.lamini.ai/v1/classifier/{model_id}/prediction
+    - POST https://api.lamini.ai/v1/data
+    - POST https://api.lamini.ai/v1/data/num-datapoints
+    - POST https://api.lamini.ai/v1/existing-data
+    - POST https://api.lamini.ai/v1/local-data
+    - POST https://api.lamini.ai/v1/get-upload-base-path
+    - POST https://api.lamini.ai/v1alpha/downloaded_models/
+    - GET  https://api.lamini.ai/v1alpha/downloaded_models/
+    - GET  https://api.lamini.ai/v1/version
+    - POST https://api.lamini.ai/alpha/memory-rag/train
+    - POST https://api.lamini.ai/alpha/memory-rag/completions
+    - POST https://api.lamini.ai/alpha/memory-rag/add-index
+    - POST https://api.lamini.ai/alpha/memory-rag/status
+sources:
+  - url: https://docs.lamini.ai/
+    type: Documentation
+    note: Platform overview; REST API base is https://api.lamini.ai, "One API, any open model".
+  - url: https://docs.lamini.ai/api/
+    type: APIReference
+    note: REST API reference for completions, train, classify, and embedding endpoints.
+  - url: https://github.com/lamini-ai/lamini
+    type: SourceCode
+    note: Official Python client; endpoint paths, request fields, and Bearer auth confirmed from lamini/api/*.py.
+  - url: https://www.lamini.ai/pricing
+    type: Pricing
+    note: On-Demand pay-as-you-go rates plus custom Enterprise pricing.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No documented SSE or WebSocket protocol surface exists. The
+    /v3/streaming_completions endpoint streams an incremental HTTP response
+    but is not published as an SSE (text/event-stream) or WebSocket contract,
+    so no AsyncAPI document was authored. The apis.yml catalog references the
+    REST OpenAPI specification for all four sub-APIs.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
