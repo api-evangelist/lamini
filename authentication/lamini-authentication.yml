@@ -1,0 +1,14 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/lamini-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: 'Lamini platform API key passed as Authorization: Bearer <API_KEY>. Requests
+    may also include a Lamini-Version header.'
+  sources:
+  - openapi/lamini-openapi.yml

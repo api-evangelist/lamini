@@ -1,0 +1,23 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.lamini.ai
+  https: false
+- host: docs.lamini.ai
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 19 03:26:50 2026 GMT
+  hsts: false
+- host: api.lamini.ai
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 19 03:26:50 2026 GMT
+  hsts: null
+domains:
+- domain: lamini.ai
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: quarantine

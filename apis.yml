@@ -102,6 +102,10 @@ apis:
   description: Encode one or more text prompts into embedding vectors via POST /v1/embedding
     for similarity search, retrieval, and Memory RAG indexing workflows.
 common:
+- type: DomainSecurity
+  url: security/lamini-domain-security.yml
+- type: Authentication
+  url: authentication/lamini-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/lamini-ai
 - type: LinkedIn
