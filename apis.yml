@@ -102,6 +102,8 @@ apis:
   description: Encode one or more text prompts into embedding vectors via POST /v1/embedding
     for similarity search, retrieval, and Memory RAG indexing workflows.
 common:
+- type: AgenticAccess
+  url: agentic-access/lamini-agentic-access.yml
 - type: DomainSecurity
   url: security/lamini-domain-security.yml
 - type: Authentication
