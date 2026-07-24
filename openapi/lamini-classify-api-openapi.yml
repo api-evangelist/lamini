@@ -1,0 +1,104 @@
+openapi: 3.0.1
+info:
+  title: Lamini Platform Classify API
+  description: REST API for the Lamini enterprise LLM platform covering inference (completions), fine-tuning and Memory Tuning jobs, classification, and embeddings over open base and tuned models. All requests are authenticated with a Bearer API key and served from https://api.lamini.ai. Endpoints and request fields are derived from the official Lamini Python client (github.com/lamini-ai/lamini) and the Lamini REST API documentation.
+  termsOfService: https://www.lamini.ai/terms
+  contact:
+    name: Lamini Support
+    url: https://www.lamini.ai
+  version: '1.0'
+servers:
+- url: https://api.lamini.ai
+security:
+- bearerAuth: []
+tags:
+- name: Classify
+  description: LLM classifier classification and prediction endpoints.
+paths:
+  /v1/classifier/{model_id}/classification:
+    post:
+      operationId: classify
+      tags:
+      - Classify
+      summary: Classify text
+      description: Classify one or more text prompts with a trained classifier model, returning scored class labels.
+      parameters:
+      - name: model_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClassifyRequest'
+      responses:
+        '200':
+          description: Classification scores.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClassifyResponse'
+  /v1/classifier/{model_id}/prediction:
+    post:
+      operationId: predict
+      tags:
+      - Classify
+      summary: Predict a class
+      description: Return the single predicted class for one or more text prompts using a trained classifier model.
+      parameters:
+      - name: model_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClassifyRequest'
+      responses:
+        '200':
+          description: Predicted class label(s).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClassifyResponse'
+components:
+  schemas:
+    ClassifyResponse:
+      type: object
+      properties:
+        classification:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+          description: Scored class labels per prompt.
+    ClassifyRequest:
+      type: object
+      required:
+      - prompt
+      properties:
+        prompt:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        top_n:
+          type: integer
+          nullable: true
+          description: Return only the top N classes.
+        threshold:
+          type: number
+          nullable: true
+          description: Confidence threshold for a prediction.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Lamini platform API key passed as Authorization: Bearer <API_KEY>. Requests may also include a Lamini-Version header.'

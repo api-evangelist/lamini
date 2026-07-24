@@ -1,0 +1,106 @@
+openapi: 3.0.1
+info:
+  title: Lamini Platform Classify Inference API
+  description: REST API for the Lamini enterprise LLM platform covering inference (completions), fine-tuning and Memory Tuning jobs, classification, and embeddings over open base and tuned models. All requests are authenticated with a Bearer API key and served from https://api.lamini.ai. Endpoints and request fields are derived from the official Lamini Python client (github.com/lamini-ai/lamini) and the Lamini REST API documentation.
+  termsOfService: https://www.lamini.ai/terms
+  contact:
+    name: Lamini Support
+    url: https://www.lamini.ai
+  version: '1.0'
+servers:
+- url: https://api.lamini.ai
+security:
+- bearerAuth: []
+tags:
+- name: Inference
+  description: Text completion and streaming generation endpoints.
+paths:
+  /v1/completions:
+    post:
+      operationId: createCompletion
+      tags:
+      - Inference
+      summary: Generate a completion
+      description: Generate a text completion from a base or tuned model. Supports a typed output schema via output_type for structured generation.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompletionRequest'
+      responses:
+        '200':
+          description: A generated completion.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompletionResponse'
+        '401':
+          description: Missing or invalid API key.
+        '429':
+          description: Rate limit exceeded.
+  /v3/streaming_completions:
+    post:
+      operationId: createStreamingCompletion
+      tags:
+      - Inference
+      summary: Generate a streaming completion
+      description: Generate a completion as an incremental stream of token chunks for the provided prompt and model.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompletionRequest'
+      responses:
+        '200':
+          description: A stream of completion chunks.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompletionResponse'
+components:
+  schemas:
+    CompletionRequest:
+      type: object
+      required:
+      - prompt
+      - model_name
+      properties:
+        prompt:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+          description: One or more input prompts.
+        model_name:
+          type: string
+          description: Base or tuned model identifier to generate from.
+        output_type:
+          type: object
+          additionalProperties: true
+          description: Optional typed output schema for structured generation.
+        max_tokens:
+          type: integer
+          nullable: true
+        max_new_tokens:
+          type: integer
+          nullable: true
+        cache_id:
+          type: string
+          nullable: true
+    CompletionResponse:
+      type: object
+      properties:
+        output:
+          oneOf:
+          - type: string
+          - type: object
+            additionalProperties: true
+          description: Generated text or structured output.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Lamini platform API key passed as Authorization: Bearer <API_KEY>. Requests may also include a Lamini-Version header.'

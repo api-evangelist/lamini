@@ -1,0 +1,66 @@
+openapi: 3.0.1
+info:
+  title: Lamini Platform Classify Embeddings API
+  description: REST API for the Lamini enterprise LLM platform covering inference (completions), fine-tuning and Memory Tuning jobs, classification, and embeddings over open base and tuned models. All requests are authenticated with a Bearer API key and served from https://api.lamini.ai. Endpoints and request fields are derived from the official Lamini Python client (github.com/lamini-ai/lamini) and the Lamini REST API documentation.
+  termsOfService: https://www.lamini.ai/terms
+  contact:
+    name: Lamini Support
+    url: https://www.lamini.ai
+  version: '1.0'
+servers:
+- url: https://api.lamini.ai
+security:
+- bearerAuth: []
+tags:
+- name: Embeddings
+  description: Text embedding generation.
+paths:
+  /v1/embedding:
+    post:
+      operationId: createEmbedding
+      tags:
+      - Embeddings
+      summary: Generate embeddings
+      description: Encode one or more text prompts into embedding vectors for similarity search, retrieval, and indexing.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmbeddingRequest'
+      responses:
+        '200':
+          description: Generated embedding vectors.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbeddingResponse'
+components:
+  schemas:
+    EmbeddingRequest:
+      type: object
+      required:
+      - prompt
+      properties:
+        prompt:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+          description: One or more texts to embed.
+    EmbeddingResponse:
+      type: object
+      properties:
+        embedding:
+          type: array
+          items:
+            type: array
+            items:
+              type: number
+          description: One embedding vector per input prompt.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Lamini platform API key passed as Authorization: Bearer <API_KEY>. Requests may also include a Lamini-Version header.'

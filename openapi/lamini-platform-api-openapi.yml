@@ -1,0 +1,33 @@
+openapi: 3.0.1
+info:
+  title: Lamini Classify Platform API
+  description: REST API for the Lamini enterprise LLM platform covering inference (completions), fine-tuning and Memory Tuning jobs, classification, and embeddings over open base and tuned models. All requests are authenticated with a Bearer API key and served from https://api.lamini.ai. Endpoints and request fields are derived from the official Lamini Python client (github.com/lamini-ai/lamini) and the Lamini REST API documentation.
+  termsOfService: https://www.lamini.ai/terms
+  contact:
+    name: Lamini Support
+    url: https://www.lamini.ai
+  version: '1.0'
+servers:
+- url: https://api.lamini.ai
+security:
+- bearerAuth: []
+tags:
+- name: Platform
+  description: Version and platform metadata endpoints.
+paths:
+  /v1/version:
+    get:
+      operationId: getVersion
+      tags:
+      - Platform
+      summary: Get platform version
+      description: Return server and client version metadata and the list of available API endpoints and their versions.
+      responses:
+        '200':
+          description: Version and endpoint metadata.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Lamini platform API key passed as Authorization: Bearer <API_KEY>. Requests may also include a Lamini-Version header.'

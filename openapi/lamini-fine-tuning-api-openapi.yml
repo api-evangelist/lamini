@@ -1,0 +1,175 @@
+openapi: 3.0.1
+info:
+  title: Lamini Platform Classify Fine-Tuning API
+  description: REST API for the Lamini enterprise LLM platform covering inference (completions), fine-tuning and Memory Tuning jobs, classification, and embeddings over open base and tuned models. All requests are authenticated with a Bearer API key and served from https://api.lamini.ai. Endpoints and request fields are derived from the official Lamini Python client (github.com/lamini-ai/lamini) and the Lamini REST API documentation.
+  termsOfService: https://www.lamini.ai/terms
+  contact:
+    name: Lamini Support
+    url: https://www.lamini.ai
+  version: '1.0'
+servers:
+- url: https://api.lamini.ai
+security:
+- bearerAuth: []
+tags:
+- name: Fine-Tuning
+  description: Tuning and Memory Tuning job submission and management.
+paths:
+  /v1/train:
+    post:
+      operationId: createTrainingJob
+      tags:
+      - Fine-Tuning
+      summary: Submit a tuning job
+      description: Submit a fine-tuning or Memory Tuning job for a base model against an uploaded dataset. The train_type field selects the tuning method (for example full fine-tuning or memory_rag).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrainRequest'
+      responses:
+        '200':
+          description: The submitted training job.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainJob'
+  /v1/train/jobs:
+    get:
+      operationId: listTrainingJobs
+      tags:
+      - Fine-Tuning
+      summary: List tuning jobs
+      description: List tuning jobs for the authenticated account.
+      responses:
+        '200':
+          description: A list of tuning jobs.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrainJob'
+  /v1/train/jobs/{job_id}:
+    get:
+      operationId: getTrainingJob
+      tags:
+      - Fine-Tuning
+      summary: Get a tuning job
+      description: Retrieve the status and metadata of a single tuning job.
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The requested tuning job.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainJob'
+  /v1/train/jobs/{job_id}/cancel:
+    post:
+      operationId: cancelTrainingJob
+      tags:
+      - Fine-Tuning
+      summary: Cancel a tuning job
+      description: Cancel a running tuning job by its job id.
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The cancelled tuning job.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainJob'
+  /v1/train/jobs/{job_id}/resume:
+    post:
+      operationId: resumeTrainingJob
+      tags:
+      - Fine-Tuning
+      summary: Resume a tuning job
+      description: Resume a previously paused or cancelled tuning job.
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The resumed tuning job.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainJob'
+  /v1/train/jobs/cancel:
+    post:
+      operationId: cancelAllTrainingJobs
+      tags:
+      - Fine-Tuning
+      summary: Cancel all tuning jobs
+      description: Cancel all running tuning jobs for the authenticated account.
+      responses:
+        '200':
+          description: Cancellation result.
+components:
+  schemas:
+    TrainRequest:
+      type: object
+      required:
+      - model_name
+      - dataset_id
+      properties:
+        model_name:
+          type: string
+          description: Base model to tune.
+        dataset_id:
+          type: string
+          description: Identifier of an uploaded dataset.
+        upload_file_path:
+          type: string
+          nullable: true
+        finetune_args:
+          type: object
+          additionalProperties: true
+          nullable: true
+        gpu_config:
+          type: object
+          additionalProperties: true
+          nullable: true
+        is_public:
+          type: boolean
+          nullable: true
+        custom_model_name:
+          type: string
+          nullable: true
+        train_type:
+          type: string
+          nullable: true
+          description: Tuning method, for example full fine-tuning, memory_rag, or mome_mini (Memory Tuning).
+    TrainJob:
+      type: object
+      properties:
+        job_id:
+          type: string
+        dataset_id:
+          type: string
+        status:
+          type: string
+          description: Current status of the tuning job.
+        model_name:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Lamini platform API key passed as Authorization: Bearer <API_KEY>. Requests may also include a Lamini-Version header.'
