@@ -7,7 +7,20 @@ description: Lamini is an enterprise LLM platform for fine-tuning, tuning, and s
   reduce hallucination, and the platform exposes a REST API for inference (completions),
   fine-tuning jobs, classification, and embeddings over open base models, deployable
   in Lamini's cloud, on-demand GPU cluster, or on-premises.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/lamini.png
 tags:
 - AI
 - LLM
@@ -18,89 +31,116 @@ created: '2026-06-20'
 modified: '2026-06-20'
 specificationVersion: '0.19'
 apis:
-- aid: lamini:lamini-inference-completions-api
-  name: Lamini Inference Completions API
-  tags:
-  - Inference
-  - Completions
-  - LLM
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.lamini.ai/api/
-  baseURL: https://api.lamini.ai
-  properties:
-  - url: https://docs.lamini.ai/inference/quick_start/
-    type: Documentation
-  - url: https://docs.lamini.ai/api/
-    type: APIReference
-  - url: openapi/lamini-openapi.yml
-    type: OpenAPI
-  - url: collections/lamini.postman_collection.json
-    type: PostmanCollection
-  description: Generate text completions from open base or tuned models via POST /v1/completions,
-    with structured (typed) output via output_type, plus streaming completions at
-    /v3/streaming_completions and an OpenAI-compatible interface under /inf.
-- aid: lamini:lamini-fine-tuning-memory-tuning-api
-  name: Lamini Fine-Tuning & Memory Tuning API
-  tags:
-  - Fine-Tuning
-  - Memory Tuning
-  - Training
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.lamini.ai/api/
-  baseURL: https://api.lamini.ai
-  properties:
-  - url: https://docs.lamini.ai/tuning/quick_start/
-    type: Documentation
-  - url: https://docs.lamini.ai/api/
-    type: APIReference
-  - url: openapi/lamini-openapi.yml
-    type: OpenAPI
-  - url: collections/lamini.postman_collection.json
-    type: PostmanCollection
-  description: Submit and manage tuning jobs against open base models via POST /v1/train,
-    supporting full fine-tuning and Lamini Memory Tuning (train_type), with job listing,
-    status, cancel, and resume under /v1/train/jobs, plus dataset upload helpers.
 - aid: lamini:lamini-classify-api
   name: Lamini Classify API
+  description: LLM classifier classification and prediction endpoints.
+  humanURL: https://docs.lamini.ai/api/
+  baseURL: https://api.lamini.ai
   tags:
   - Classify
-  - Classification
-  - LLM Classifier
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.lamini.ai/api/
-  baseURL: https://api.lamini.ai
   properties:
-  - url: https://docs.lamini.ai/classify/quick_start/
-    type: Documentation
-  - url: https://docs.lamini.ai/api/
-    type: APIReference
-  - url: openapi/lamini-openapi.yml
-    type: OpenAPI
-  - url: collections/lamini.postman_collection.json
-    type: PostmanCollection
-  description: Run LLM-based text classification against a trained classifier model via
-    POST /v1/classifier/{model_id}/classification for scored labels, or
-    /v1/classifier/{model_id}/prediction for a single predicted class.
+  - type: OpenAPI
+    url: openapi/lamini-classify-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lamini.ai/inference/quick_start/
+  - type: APIReference
+    url: https://docs.lamini.ai/api/
+  - type: PostmanCollection
+    url: collections/lamini.postman_collection.json
+  - type: Documentation
+    url: https://docs.lamini.ai/tuning/quick_start/
+  - type: Documentation
+    url: https://docs.lamini.ai/classify/quick_start/
+  - type: Documentation
+    url: https://docs.lamini.ai/api/
 - aid: lamini:lamini-embeddings-api
   name: Lamini Embeddings API
-  tags:
-  - Embeddings
-  - Vectors
-  - Retrieval
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  description: Text embedding generation.
   humanURL: https://docs.lamini.ai/api/
   baseURL: https://api.lamini.ai
+  tags:
+  - Embeddings
   properties:
-  - url: https://docs.lamini.ai/api/
-    type: Documentation
-  - url: https://docs.lamini.ai/api/
-    type: APIReference
-  - url: openapi/lamini-openapi.yml
-    type: OpenAPI
-  - url: collections/lamini.postman_collection.json
-    type: PostmanCollection
-  description: Encode one or more text prompts into embedding vectors via POST /v1/embedding
-    for similarity search, retrieval, and Memory RAG indexing workflows.
+  - type: OpenAPI
+    url: openapi/lamini-embeddings-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lamini.ai/inference/quick_start/
+  - type: APIReference
+    url: https://docs.lamini.ai/api/
+  - type: PostmanCollection
+    url: collections/lamini.postman_collection.json
+  - type: Documentation
+    url: https://docs.lamini.ai/tuning/quick_start/
+  - type: Documentation
+    url: https://docs.lamini.ai/classify/quick_start/
+  - type: Documentation
+    url: https://docs.lamini.ai/api/
+- aid: lamini:lamini-fine-tuning-api
+  name: Lamini Fine-Tuning API
+  description: Tuning and Memory Tuning job submission and management.
+  humanURL: https://docs.lamini.ai/api/
+  baseURL: https://api.lamini.ai
+  tags:
+  - Fine-Tuning
+  properties:
+  - type: OpenAPI
+    url: openapi/lamini-fine-tuning-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lamini.ai/inference/quick_start/
+  - type: APIReference
+    url: https://docs.lamini.ai/api/
+  - type: PostmanCollection
+    url: collections/lamini.postman_collection.json
+  - type: Documentation
+    url: https://docs.lamini.ai/tuning/quick_start/
+  - type: Documentation
+    url: https://docs.lamini.ai/classify/quick_start/
+  - type: Documentation
+    url: https://docs.lamini.ai/api/
+- aid: lamini:lamini-inference-api
+  name: Lamini Inference API
+  description: Text completion and streaming generation endpoints.
+  humanURL: https://docs.lamini.ai/api/
+  baseURL: https://api.lamini.ai
+  tags:
+  - Inference
+  properties:
+  - type: OpenAPI
+    url: openapi/lamini-inference-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lamini.ai/inference/quick_start/
+  - type: APIReference
+    url: https://docs.lamini.ai/api/
+  - type: PostmanCollection
+    url: collections/lamini.postman_collection.json
+  - type: Documentation
+    url: https://docs.lamini.ai/tuning/quick_start/
+  - type: Documentation
+    url: https://docs.lamini.ai/classify/quick_start/
+  - type: Documentation
+    url: https://docs.lamini.ai/api/
+- aid: lamini:lamini-platform-api
+  name: Lamini Platform API
+  description: Version and platform metadata endpoints.
+  humanURL: https://docs.lamini.ai/api/
+  baseURL: https://api.lamini.ai
+  tags:
+  - Platform
+  properties:
+  - type: OpenAPI
+    url: openapi/lamini-platform-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lamini.ai/inference/quick_start/
+  - type: APIReference
+    url: https://docs.lamini.ai/api/
+  - type: PostmanCollection
+    url: collections/lamini.postman_collection.json
+  - type: Documentation
+    url: https://docs.lamini.ai/tuning/quick_start/
+  - type: Documentation
+    url: https://docs.lamini.ai/classify/quick_start/
+  - type: Documentation
+    url: https://docs.lamini.ai/api/
 common:
 - type: AgenticAccess
   url: agentic-access/lamini-agentic-access.yml
