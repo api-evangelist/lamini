@@ -1,0 +1,422 @@
+openapi: 3.0.1
+info:
+  title: Lamini Platform API
+  description: >-
+    REST API for the Lamini enterprise LLM platform covering inference
+    (completions), fine-tuning and Memory Tuning jobs, classification, and
+    embeddings over open base and tuned models. All requests are authenticated
+    with a Bearer API key and served from https://api.lamini.ai. Endpoints and
+    request fields are derived from the official Lamini Python client
+    (github.com/lamini-ai/lamini) and the Lamini REST API documentation.
+  termsOfService: https://www.lamini.ai/terms
+  contact:
+    name: Lamini Support
+    url: https://www.lamini.ai
+  version: '1.0'
+servers:
+  - url: https://api.lamini.ai
+security:
+  - bearerAuth: []
+tags:
+  - name: Inference
+    description: Text completion and streaming generation endpoints.
+  - name: Fine-Tuning
+    description: Tuning and Memory Tuning job submission and management.
+  - name: Classify
+    description: LLM classifier classification and prediction endpoints.
+  - name: Embeddings
+    description: Text embedding generation.
+  - name: Platform
+    description: Version and platform metadata endpoints.
+paths:
+  /v1/completions:
+    post:
+      operationId: createCompletion
+      tags:
+        - Inference
+      summary: Generate a completion
+      description: >-
+        Generate a text completion from a base or tuned model. Supports a typed
+        output schema via output_type for structured generation.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompletionRequest'
+      responses:
+        '200':
+          description: A generated completion.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompletionResponse'
+        '401':
+          description: Missing or invalid API key.
+        '429':
+          description: Rate limit exceeded.
+  /v3/streaming_completions:
+    post:
+      operationId: createStreamingCompletion
+      tags:
+        - Inference
+      summary: Generate a streaming completion
+      description: >-
+        Generate a completion as an incremental stream of token chunks for the
+        provided prompt and model.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompletionRequest'
+      responses:
+        '200':
+          description: A stream of completion chunks.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompletionResponse'
+  /v1/embedding:
+    post:
+      operationId: createEmbedding
+      tags:
+        - Embeddings
+      summary: Generate embeddings
+      description: >-
+        Encode one or more text prompts into embedding vectors for similarity
+        search, retrieval, and indexing.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmbeddingRequest'
+      responses:
+        '200':
+          description: Generated embedding vectors.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbeddingResponse'
+  /v1/train:
+    post:
+      operationId: createTrainingJob
+      tags:
+        - Fine-Tuning
+      summary: Submit a tuning job
+      description: >-
+        Submit a fine-tuning or Memory Tuning job for a base model against an
+        uploaded dataset. The train_type field selects the tuning method (for
+        example full fine-tuning or memory_rag).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrainRequest'
+      responses:
+        '200':
+          description: The submitted training job.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainJob'
+  /v1/train/jobs:
+    get:
+      operationId: listTrainingJobs
+      tags:
+        - Fine-Tuning
+      summary: List tuning jobs
+      description: List tuning jobs for the authenticated account.
+      responses:
+        '200':
+          description: A list of tuning jobs.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrainJob'
+  /v1/train/jobs/{job_id}:
+    get:
+      operationId: getTrainingJob
+      tags:
+        - Fine-Tuning
+      summary: Get a tuning job
+      description: Retrieve the status and metadata of a single tuning job.
+      parameters:
+        - name: job_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The requested tuning job.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainJob'
+  /v1/train/jobs/{job_id}/cancel:
+    post:
+      operationId: cancelTrainingJob
+      tags:
+        - Fine-Tuning
+      summary: Cancel a tuning job
+      description: Cancel a running tuning job by its job id.
+      parameters:
+        - name: job_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The cancelled tuning job.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainJob'
+  /v1/train/jobs/{job_id}/resume:
+    post:
+      operationId: resumeTrainingJob
+      tags:
+        - Fine-Tuning
+      summary: Resume a tuning job
+      description: Resume a previously paused or cancelled tuning job.
+      parameters:
+        - name: job_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The resumed tuning job.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainJob'
+  /v1/train/jobs/cancel:
+    post:
+      operationId: cancelAllTrainingJobs
+      tags:
+        - Fine-Tuning
+      summary: Cancel all tuning jobs
+      description: Cancel all running tuning jobs for the authenticated account.
+      responses:
+        '200':
+          description: Cancellation result.
+  /v1/classifier/{model_id}/classification:
+    post:
+      operationId: classify
+      tags:
+        - Classify
+      summary: Classify text
+      description: >-
+        Classify one or more text prompts with a trained classifier model,
+        returning scored class labels.
+      parameters:
+        - name: model_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClassifyRequest'
+      responses:
+        '200':
+          description: Classification scores.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClassifyResponse'
+  /v1/classifier/{model_id}/prediction:
+    post:
+      operationId: predict
+      tags:
+        - Classify
+      summary: Predict a class
+      description: >-
+        Return the single predicted class for one or more text prompts using a
+        trained classifier model.
+      parameters:
+        - name: model_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClassifyRequest'
+      responses:
+        '200':
+          description: Predicted class label(s).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClassifyResponse'
+  /v1/version:
+    get:
+      operationId: getVersion
+      tags:
+        - Platform
+      summary: Get platform version
+      description: >-
+        Return server and client version metadata and the list of available
+        API endpoints and their versions.
+      responses:
+        '200':
+          description: Version and endpoint metadata.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Lamini platform API key passed as Authorization: Bearer <API_KEY>.
+        Requests may also include a Lamini-Version header.
+  schemas:
+    CompletionRequest:
+      type: object
+      required:
+        - prompt
+        - model_name
+      properties:
+        prompt:
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                type: string
+          description: One or more input prompts.
+        model_name:
+          type: string
+          description: Base or tuned model identifier to generate from.
+        output_type:
+          type: object
+          additionalProperties: true
+          description: Optional typed output schema for structured generation.
+        max_tokens:
+          type: integer
+          nullable: true
+        max_new_tokens:
+          type: integer
+          nullable: true
+        cache_id:
+          type: string
+          nullable: true
+    CompletionResponse:
+      type: object
+      properties:
+        output:
+          oneOf:
+            - type: string
+            - type: object
+              additionalProperties: true
+          description: Generated text or structured output.
+    EmbeddingRequest:
+      type: object
+      required:
+        - prompt
+      properties:
+        prompt:
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                type: string
+          description: One or more texts to embed.
+    EmbeddingResponse:
+      type: object
+      properties:
+        embedding:
+          type: array
+          items:
+            type: array
+            items:
+              type: number
+          description: One embedding vector per input prompt.
+    TrainRequest:
+      type: object
+      required:
+        - model_name
+        - dataset_id
+      properties:
+        model_name:
+          type: string
+          description: Base model to tune.
+        dataset_id:
+          type: string
+          description: Identifier of an uploaded dataset.
+        upload_file_path:
+          type: string
+          nullable: true
+        finetune_args:
+          type: object
+          additionalProperties: true
+          nullable: true
+        gpu_config:
+          type: object
+          additionalProperties: true
+          nullable: true
+        is_public:
+          type: boolean
+          nullable: true
+        custom_model_name:
+          type: string
+          nullable: true
+        train_type:
+          type: string
+          nullable: true
+          description: >-
+            Tuning method, for example full fine-tuning, memory_rag, or
+            mome_mini (Memory Tuning).
+    TrainJob:
+      type: object
+      properties:
+        job_id:
+          type: string
+        dataset_id:
+          type: string
+        status:
+          type: string
+          description: Current status of the tuning job.
+        model_name:
+          type: string
+    ClassifyRequest:
+      type: object
+      required:
+        - prompt
+      properties:
+        prompt:
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                type: string
+        top_n:
+          type: integer
+          nullable: true
+          description: Return only the top N classes.
+        threshold:
+          type: number
+          nullable: true
+          description: Confidence threshold for a prediction.
+    ClassifyResponse:
+      type: object
+      properties:
+        classification:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+          description: Scored class labels per prompt.

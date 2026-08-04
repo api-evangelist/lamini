@@ -1,0 +1,22 @@
+{
+  "provider": "lamini",
+  "sources": [
+    "lamini-classify-api-openapi.yml",
+    "lamini-embeddings-api-openapi.yml",
+    "lamini-fine-tuning-api-openapi.yml",
+    "lamini-inference-api-openapi.yml",
+    "lamini-platform-api-openapi.yml"
+  ],
+  "outputs": [
+    "lamini-classify-api-openapi.yml",
+    "lamini-embeddings-api-openapi.yml",
+    "lamini-fine-tuning-api-openapi.yml",
+    "lamini-inference-api-openapi.yml",
+    "lamini-platform-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
