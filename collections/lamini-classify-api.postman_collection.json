@@ -1,0 +1,283 @@
+{
+  "item": [
+    {
+      "id": "a25b34da-6c76-46fb-bf4c-6c8c69cd649e",
+      "name": "Classify",
+      "description": {
+        "content": "LLM classifier classification and prediction endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "35f74479-8577-4192-a0f9-c27e924de045",
+          "name": "Classify text",
+          "request": {
+            "name": "Classify text",
+            "description": {
+              "content": "Classify one or more text prompts with a trained classifier model, returning scored class labels.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "classifier",
+                ":model_id",
+                "classification"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "model_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt\": \"<string>\",\n  \"top_n\": \"<integer>\",\n  \"threshold\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "28289e49-096f-40e7-8c16-d5390eb29108",
+              "name": "Classification scores.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "classifier",
+                    ":model_id",
+                    "classification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "model_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prompt\": \"<string>\",\n  \"top_n\": \"<integer>\",\n  \"threshold\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"classification\": [\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 2820.723772117416\n    },\n    {\n      \"key_0\": 9639.018838595139,\n      \"key_1\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e63a7a5d-cdc5-445e-b2c6-e6b15b1fc0e6",
+          "name": "Predict a class",
+          "request": {
+            "name": "Predict a class",
+            "description": {
+              "content": "Return the single predicted class for one or more text prompts using a trained classifier model.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "classifier",
+                ":model_id",
+                "prediction"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "model_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt\": \"<string>\",\n  \"top_n\": \"<integer>\",\n  \"threshold\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "186e5f22-f174-4024-9b76-9ca40b65d6a8",
+              "name": "Predicted class label(s).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "classifier",
+                    ":model_id",
+                    "prediction"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "model_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prompt\": \"<string>\",\n  \"top_n\": \"<integer>\",\n  \"threshold\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"classification\": [\n    {\n      \"key_0\": 5725.541852826947\n    },\n    {\n      \"key_0\": 1535,\n      \"key_1\": 5420.162348203472\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.lamini.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5d8ca23c-736f-4618-8d9c-0837ff0f171a",
+    "name": "Lamini Platform Classify API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for the Lamini enterprise LLM platform covering inference (completions), fine-tuning and Memory Tuning jobs, classification, and embeddings over open base and tuned models. All requests are authenticated with a Bearer API key and served from https://api.lamini.ai. Endpoints and request fields are derived from the official Lamini Python client (github.com/lamini-ai/lamini) and the Lamini REST API documentation.\n\nContact Support:\n Name: Lamini Support",
+      "type": "text/plain"
+    }
+  }
+}

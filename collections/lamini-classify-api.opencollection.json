@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lamini Platform Classify API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Classify",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Classify text",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lamini.ai/v1/classifier/:model_id/classification",
+            "params": [
+              {
+                "name": "model_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Classify one or more text prompts with a trained classifier model, returning scored class labels."
+        },
+        {
+          "info": {
+            "name": "Predict a class",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lamini.ai/v1/classifier/:model_id/prediction",
+            "params": [
+              {
+                "name": "model_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Return the single predicted class for one or more text prompts using a trained classifier model."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

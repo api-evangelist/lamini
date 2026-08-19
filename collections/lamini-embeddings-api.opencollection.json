@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lamini Platform Classify Embeddings API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Embeddings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate embeddings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lamini.ai/v1/embedding",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Encode one or more text prompts into embedding vectors for similarity search, retrieval, and indexing."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

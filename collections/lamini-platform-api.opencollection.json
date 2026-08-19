@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lamini Classify Platform API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Platform",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get platform version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lamini.ai/v1/version"
+          },
+          "docs": "Return server and client version metadata and the list of available API endpoints and their versions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,142 @@
+{
+  "item": [
+    {
+      "id": "f5c519b4-b82f-4d89-b6e2-43d98431a0da",
+      "name": "Embeddings",
+      "description": {
+        "content": "Text embedding generation.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0166a542-5b4f-4257-8870-a8b5c71db8e1",
+          "name": "Generate embeddings",
+          "request": {
+            "name": "Generate embeddings",
+            "description": {
+              "content": "Encode one or more text prompts into embedding vectors for similarity search, retrieval, and indexing.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "embedding"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a69992fc-dde3-4673-9f8f-d5ca93889ba9",
+              "name": "Generated embedding vectors.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "embedding"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prompt\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"embedding\": [\n    [\n      8930.392280157545,\n      803.2936133772716\n    ],\n    [\n      3484.2315291438085,\n      6884.490173233448\n    ]\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.lamini.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "152d7af0-5ea4-4282-9347-25334fff742f",
+    "name": "Lamini Platform Classify Embeddings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for the Lamini enterprise LLM platform covering inference (completions), fine-tuning and Memory Tuning jobs, classification, and embeddings over open base and tuned models. All requests are authenticated with a Bearer API key and served from https://api.lamini.ai. Endpoints and request fields are derived from the official Lamini Python client (github.com/lamini-ai/lamini) and the Lamini REST API documentation.\n\nContact Support:\n Name: Lamini Support",
+      "type": "text/plain"
+    }
+  }
+}

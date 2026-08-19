@@ -1,0 +1,54 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lamini Platform Classify Inference API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Inference",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate a completion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lamini.ai/v1/completions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate a text completion from a base or tuned model. Supports a typed output schema via output_type for structured generation."
+        },
+        {
+          "info": {
+            "name": "Generate a streaming completion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lamini.ai/v3/streaming_completions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate a completion as an incremental stream of token chunks for the provided prompt and model."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

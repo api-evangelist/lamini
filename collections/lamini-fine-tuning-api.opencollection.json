@@ -1,0 +1,115 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lamini Platform Classify Fine-Tuning API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Fine-Tuning",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Submit a tuning job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lamini.ai/v1/train",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a fine-tuning or Memory Tuning job for a base model against an uploaded dataset. The train_type field selects the tuning method (for example full fine-tuning or memory_rag)."
+        },
+        {
+          "info": {
+            "name": "List tuning jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lamini.ai/v1/train/jobs"
+          },
+          "docs": "List tuning jobs for the authenticated account."
+        },
+        {
+          "info": {
+            "name": "Get a tuning job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lamini.ai/v1/train/jobs/:job_id",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve the status and metadata of a single tuning job."
+        },
+        {
+          "info": {
+            "name": "Cancel a tuning job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lamini.ai/v1/train/jobs/:job_id/cancel",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Cancel a running tuning job by its job id."
+        },
+        {
+          "info": {
+            "name": "Resume a tuning job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lamini.ai/v1/train/jobs/:job_id/resume",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Resume a previously paused or cancelled tuning job."
+        },
+        {
+          "info": {
+            "name": "Cancel all tuning jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lamini.ai/v1/train/jobs/cancel"
+          },
+          "docs": "Cancel all running tuning jobs for the authenticated account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,339 @@
+{
+  "item": [
+    {
+      "id": "d6f09f1f-0428-47e3-8c31-112d98dbce31",
+      "name": "Inference",
+      "description": {
+        "content": "Text completion and streaming generation endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bb7b9f24-261e-4fcb-a4d4-3deffb983dc4",
+          "name": "Generate a completion",
+          "request": {
+            "name": "Generate a completion",
+            "description": {
+              "content": "Generate a text completion from a base or tuned model. Supports a typed output schema via output_type for structured generation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "completions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt\": \"<string>\",\n  \"model_name\": \"<string>\",\n  \"output_type\": {\n    \"key_0\": \"string\",\n    \"key_1\": false\n  },\n  \"max_tokens\": \"<integer>\",\n  \"max_new_tokens\": \"<integer>\",\n  \"cache_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b442d8ce-9939-41b2-9be8-3b7d2fc21214",
+              "name": "A generated completion.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prompt\": \"<string>\",\n  \"model_name\": \"<string>\",\n  \"output_type\": {\n    \"key_0\": false,\n    \"key_1\": 4536.798588750548\n  },\n  \"max_tokens\": \"<integer>\",\n  \"max_new_tokens\": \"<integer>\",\n  \"cache_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"output\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "469502a9-9066-4c11-8205-e10a3eada726",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prompt\": \"<string>\",\n  \"model_name\": \"<string>\",\n  \"output_type\": {\n    \"key_0\": false,\n    \"key_1\": 4536.798588750548\n  },\n  \"max_tokens\": \"<integer>\",\n  \"max_new_tokens\": \"<integer>\",\n  \"cache_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d3468114-6be9-488e-b286-02997ab9ef9c",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prompt\": \"<string>\",\n  \"model_name\": \"<string>\",\n  \"output_type\": {\n    \"key_0\": false,\n    \"key_1\": 4536.798588750548\n  },\n  \"max_tokens\": \"<integer>\",\n  \"max_new_tokens\": \"<integer>\",\n  \"cache_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "999f6633-1084-4b1d-81db-b44b5f8d4ba1",
+          "name": "Generate a streaming completion",
+          "request": {
+            "name": "Generate a streaming completion",
+            "description": {
+              "content": "Generate a completion as an incremental stream of token chunks for the provided prompt and model.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "streaming_completions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt\": \"<string>\",\n  \"model_name\": \"<string>\",\n  \"output_type\": {\n    \"key_0\": \"string\",\n    \"key_1\": false\n  },\n  \"max_tokens\": \"<integer>\",\n  \"max_new_tokens\": \"<integer>\",\n  \"cache_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a2a39ad0-75ed-4e73-812e-4a4c8b79c856",
+              "name": "A stream of completion chunks.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "streaming_completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prompt\": \"<string>\",\n  \"model_name\": \"<string>\",\n  \"output_type\": {\n    \"key_0\": false,\n    \"key_1\": 4536.798588750548\n  },\n  \"max_tokens\": \"<integer>\",\n  \"max_new_tokens\": \"<integer>\",\n  \"cache_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"output\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.lamini.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "dc7d078c-a0cb-4f4c-8740-614048c4be70",
+    "name": "Lamini Platform Classify Inference API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for the Lamini enterprise LLM platform covering inference (completions), fine-tuning and Memory Tuning jobs, classification, and embeddings over open base and tuned models. All requests are authenticated with a Bearer API key and served from https://api.lamini.ai. Endpoints and request fields are derived from the official Lamini Python client (github.com/lamini-ai/lamini) and the Lamini REST API documentation.\n\nContact Support:\n Name: Lamini Support",
+      "type": "text/plain"
+    }
+  }
+}

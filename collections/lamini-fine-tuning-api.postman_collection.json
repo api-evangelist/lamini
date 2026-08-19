@@ -1,0 +1,602 @@
+{
+  "item": [
+    {
+      "id": "f5364730-072b-4346-9ec0-a0c6929af7ac",
+      "name": "Fine-Tuning",
+      "description": {
+        "content": "Tuning and Memory Tuning job submission and management.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6d2e5728-19eb-4d16-a022-31b5e49717ac",
+          "name": "Submit a tuning job",
+          "request": {
+            "name": "Submit a tuning job",
+            "description": {
+              "content": "Submit a fine-tuning or Memory Tuning job for a base model against an uploaded dataset. The train_type field selects the tuning method (for example full fine-tuning or memory_rag).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "train"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model_name\": \"<string>\",\n  \"dataset_id\": \"<string>\",\n  \"upload_file_path\": \"<string>\",\n  \"finetune_args\": {\n    \"key_0\": 2971,\n    \"key_1\": \"string\",\n    \"key_2\": 4399.110197197057,\n    \"key_3\": 5966\n  },\n  \"gpu_config\": {\n    \"key_0\": 3594,\n    \"key_1\": 7661,\n    \"key_2\": true\n  },\n  \"is_public\": \"<boolean>\",\n  \"custom_model_name\": \"<string>\",\n  \"train_type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e5d2262d-84ec-4af6-99c4-da5c8dff5e25",
+              "name": "The submitted training job.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "train"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model_name\": \"<string>\",\n  \"dataset_id\": \"<string>\",\n  \"upload_file_path\": \"<string>\",\n  \"finetune_args\": {\n    \"key_0\": 7348.343655295145,\n    \"key_1\": true\n  },\n  \"gpu_config\": {\n    \"key_0\": false,\n    \"key_1\": false,\n    \"key_2\": \"string\"\n  },\n  \"is_public\": \"<boolean>\",\n  \"custom_model_name\": \"<string>\",\n  \"train_type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job_id\": \"string\",\n  \"dataset_id\": \"string\",\n  \"status\": \"string\",\n  \"model_name\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "de9167d5-df23-4517-b489-a56663022164",
+          "name": "List tuning jobs",
+          "request": {
+            "name": "List tuning jobs",
+            "description": {
+              "content": "List tuning jobs for the authenticated account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "train",
+                "jobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "800ab975-498f-41fe-9339-b3549a598630",
+              "name": "A list of tuning jobs.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "train",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"job_id\": \"string\",\n    \"dataset_id\": \"string\",\n    \"status\": \"string\",\n    \"model_name\": \"string\"\n  },\n  {\n    \"job_id\": \"string\",\n    \"dataset_id\": \"string\",\n    \"status\": \"string\",\n    \"model_name\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "04bf82c2-885a-4c24-98d6-52aee26e361b",
+          "name": "Get a tuning job",
+          "request": {
+            "name": "Get a tuning job",
+            "description": {
+              "content": "Retrieve the status and metadata of a single tuning job.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "train",
+                "jobs",
+                ":job_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "job_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b8965ca6-1d03-4c25-9008-0a367ae0182d",
+              "name": "The requested tuning job.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "train",
+                    "jobs",
+                    ":job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job_id\": \"string\",\n  \"dataset_id\": \"string\",\n  \"status\": \"string\",\n  \"model_name\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a821f91c-eb5f-4817-8705-1b4e5e226ea3",
+          "name": "Cancel a tuning job",
+          "request": {
+            "name": "Cancel a tuning job",
+            "description": {
+              "content": "Cancel a running tuning job by its job id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "train",
+                "jobs",
+                ":job_id",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "job_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4522d1d8-7d3f-4a88-86ed-f737bcfdf9b0",
+              "name": "The cancelled tuning job.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "train",
+                    "jobs",
+                    ":job_id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job_id\": \"string\",\n  \"dataset_id\": \"string\",\n  \"status\": \"string\",\n  \"model_name\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f42a0359-6039-4ed9-8769-ba15c7962b12",
+          "name": "Resume a tuning job",
+          "request": {
+            "name": "Resume a tuning job",
+            "description": {
+              "content": "Resume a previously paused or cancelled tuning job.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "train",
+                "jobs",
+                ":job_id",
+                "resume"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "job_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3d9e6391-1408-4b46-8cd7-792d527a53d8",
+              "name": "The resumed tuning job.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "train",
+                    "jobs",
+                    ":job_id",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job_id\": \"string\",\n  \"dataset_id\": \"string\",\n  \"status\": \"string\",\n  \"model_name\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6417dd9c-cf5c-4e90-b879-54fd7e2b9686",
+          "name": "Cancel all tuning jobs",
+          "request": {
+            "name": "Cancel all tuning jobs",
+            "description": {
+              "content": "Cancel all running tuning jobs for the authenticated account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "train",
+                "jobs",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b823ccd7-469f-4d8e-abfb-4c379885dcde",
+              "name": "Cancellation result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "train",
+                    "jobs",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.lamini.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "fd576ae8-22de-49b9-b77e-358f5813281c",
+    "name": "Lamini Platform Classify Fine-Tuning API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for the Lamini enterprise LLM platform covering inference (completions), fine-tuning and Memory Tuning jobs, classification, and embeddings over open base and tuned models. All requests are authenticated with a Bearer API key and served from https://api.lamini.ai. Endpoints and request fields are derived from the official Lamini Python client (github.com/lamini-ai/lamini) and the Lamini REST API documentation.\n\nContact Support:\n Name: Lamini Support",
+      "type": "text/plain"
+    }
+  }
+}

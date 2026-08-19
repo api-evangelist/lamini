@@ -1,0 +1,111 @@
+{
+  "item": [
+    {
+      "id": "553edb5c-7a51-47fa-af72-9d8b43f64702",
+      "name": "Platform",
+      "description": {
+        "content": "Version and platform metadata endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0f059980-92ee-44e7-b1fe-28f39564cf0a",
+          "name": "Get platform version",
+          "request": {
+            "name": "Get platform version",
+            "description": {
+              "content": "Return server and client version metadata and the list of available API endpoints and their versions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "version"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6c9f7997-fb7a-4934-99a4-f09c1440355f",
+              "name": "Version and endpoint metadata.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.lamini.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "fd632898-d2e7-4718-90a6-b4ab590a1f35",
+    "name": "Lamini Classify Platform API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for the Lamini enterprise LLM platform covering inference (completions), fine-tuning and Memory Tuning jobs, classification, and embeddings over open base and tuned models. All requests are authenticated with a Bearer API key and served from https://api.lamini.ai. Endpoints and request fields are derived from the official Lamini Python client (github.com/lamini-ai/lamini) and the Lamini REST API documentation.\n\nContact Support:\n Name: Lamini Support",
+      "type": "text/plain"
+    }
+  }
+}
