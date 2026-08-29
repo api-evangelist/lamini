@@ -7,6 +7,18 @@ description: Lamini is an enterprise LLM platform for fine-tuning, tuning, and s
   reduce hallucination, and the platform exposes a REST API for inference (completions),
   fine-tuning jobs, classification, and embeddings over open base models, deployable
   in Lamini's cloud, on-demand GPU cluster, or on-premises.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
