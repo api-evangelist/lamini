@@ -1,11 +1,7 @@
 {
   "provider": "lamini",
   "sources": [
-    "lamini-classify-api-openapi.yml",
-    "lamini-embeddings-api-openapi.yml",
-    "lamini-fine-tuning-api-openapi.yml",
-    "lamini-inference-api-openapi.yml",
-    "lamini-platform-api-openapi.yml"
+    "_original/lamini-openapi.yml"
   ],
   "outputs": [
     "lamini-classify-api-openapi.yml",
@@ -17,6 +13,16 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "lamini-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "lamini-classify-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lamini-embeddings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lamini-fine-tuning-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lamini-inference-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lamini-platform-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

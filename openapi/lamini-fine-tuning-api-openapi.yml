@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Lamini Platform Classify Fine-Tuning API
+  title: Lamini Platform Fine Tuning API
   description: REST API for the Lamini enterprise LLM platform covering inference (completions), fine-tuning and Memory Tuning jobs, classification, and embeddings over open base and tuned models. All requests are authenticated with a Bearer API key and served from https://api.lamini.ai. Endpoints and request fields are derived from the official Lamini Python client (github.com/lamini-ai/lamini) and the Lamini REST API documentation.
   termsOfService: https://www.lamini.ai/terms
   contact:
@@ -12,14 +12,14 @@ servers:
 security:
 - bearerAuth: []
 tags:
-- name: Fine-Tuning
+- name: Fine Tuning
   description: Tuning and Memory Tuning job submission and management.
 paths:
   /v1/train:
     post:
       operationId: createTrainingJob
       tags:
-      - Fine-Tuning
+      - Fine Tuning
       summary: Submit a tuning job
       description: Submit a fine-tuning or Memory Tuning job for a base model against an uploaded dataset. The train_type field selects the tuning method (for example full fine-tuning or memory_rag).
       requestBody:
@@ -39,7 +39,7 @@ paths:
     get:
       operationId: listTrainingJobs
       tags:
-      - Fine-Tuning
+      - Fine Tuning
       summary: List tuning jobs
       description: List tuning jobs for the authenticated account.
       responses:
@@ -55,7 +55,7 @@ paths:
     get:
       operationId: getTrainingJob
       tags:
-      - Fine-Tuning
+      - Fine Tuning
       summary: Get a tuning job
       description: Retrieve the status and metadata of a single tuning job.
       parameters:
@@ -75,7 +75,7 @@ paths:
     post:
       operationId: cancelTrainingJob
       tags:
-      - Fine-Tuning
+      - Fine Tuning
       summary: Cancel a tuning job
       description: Cancel a running tuning job by its job id.
       parameters:
@@ -95,7 +95,7 @@ paths:
     post:
       operationId: resumeTrainingJob
       tags:
-      - Fine-Tuning
+      - Fine Tuning
       summary: Resume a tuning job
       description: Resume a previously paused or cancelled tuning job.
       parameters:
@@ -115,7 +115,7 @@ paths:
     post:
       operationId: cancelAllTrainingJobs
       tags:
-      - Fine-Tuning
+      - Fine Tuning
       summary: Cancel all tuning jobs
       description: Cancel all running tuning jobs for the authenticated account.
       responses:
@@ -136,25 +136,31 @@ components:
           type: string
           description: Identifier of an uploaded dataset.
         upload_file_path:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         finetune_args:
-          type: object
+          type:
+          - object
+          - 'null'
           additionalProperties: true
-          nullable: true
         gpu_config:
-          type: object
+          type:
+          - object
+          - 'null'
           additionalProperties: true
-          nullable: true
         is_public:
-          type: boolean
-          nullable: true
+          type:
+          - boolean
+          - 'null'
         custom_model_name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         train_type:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Tuning method, for example full fine-tuning, memory_rag, or mome_mini (Memory Tuning).
     TrainJob:
       type: object

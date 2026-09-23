@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
   title: Lamini Platform Classify API
   description: REST API for the Lamini enterprise LLM platform covering inference (completions), fine-tuning and Memory Tuning jobs, classification, and embeddings over open base and tuned models. All requests are authenticated with a Bearer API key and served from https://api.lamini.ai. Endpoints and request fields are derived from the official Lamini Python client (github.com/lamini-ai/lamini) and the Lamini REST API documentation.
@@ -90,12 +90,14 @@ components:
             items:
               type: string
         top_n:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
           description: Return only the top N classes.
         threshold:
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
           description: Confidence threshold for a prediction.
   securitySchemes:
     bearerAuth:

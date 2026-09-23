@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Lamini Platform Classify Embeddings API
+  title: Lamini Platform Embeddings API
   description: REST API for the Lamini enterprise LLM platform covering inference (completions), fine-tuning and Memory Tuning jobs, classification, and embeddings over open base and tuned models. All requests are authenticated with a Bearer API key and served from https://api.lamini.ai. Endpoints and request fields are derived from the official Lamini Python client (github.com/lamini-ai/lamini) and the Lamini REST API documentation.
   termsOfService: https://www.lamini.ai/terms
   contact:
@@ -37,6 +37,16 @@ paths:
                 $ref: '#/components/schemas/EmbeddingResponse'
 components:
   schemas:
+    EmbeddingResponse:
+      type: object
+      properties:
+        embedding:
+          type: array
+          items:
+            type: array
+            items:
+              type: number
+          description: One embedding vector per input prompt.
     EmbeddingRequest:
       type: object
       required:
@@ -49,16 +59,6 @@ components:
             items:
               type: string
           description: One or more texts to embed.
-    EmbeddingResponse:
-      type: object
-      properties:
-        embedding:
-          type: array
-          items:
-            type: array
-            items:
-              type: number
-          description: One embedding vector per input prompt.
   securitySchemes:
     bearerAuth:
       type: http
