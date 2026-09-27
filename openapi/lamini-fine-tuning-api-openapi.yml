@@ -123,6 +123,18 @@ paths:
           description: Cancellation result.
 components:
   schemas:
+    TrainJob:
+      type: object
+      properties:
+        job_id:
+          type: string
+        dataset_id:
+          type: string
+        status:
+          type: string
+          description: Current status of the tuning job.
+        model_name:
+          type: string
     TrainRequest:
       type: object
       required:
@@ -162,18 +174,6 @@ components:
           - string
           - 'null'
           description: Tuning method, for example full fine-tuning, memory_rag, or mome_mini (Memory Tuning).
-    TrainJob:
-      type: object
-      properties:
-        job_id:
-          type: string
-        dataset_id:
-          type: string
-        status:
-          type: string
-          description: Current status of the tuning job.
-        model_name:
-          type: string
   securitySchemes:
     bearerAuth:
       type: http
