@@ -61,15 +61,6 @@ paths:
                 $ref: '#/components/schemas/CompletionResponse'
 components:
   schemas:
-    CompletionResponse:
-      type: object
-      properties:
-        output:
-          oneOf:
-          - type: string
-          - type: object
-            additionalProperties: true
-          description: Generated text or structured output.
     CompletionRequest:
       type: object
       required:
@@ -102,6 +93,15 @@ components:
           type:
           - string
           - 'null'
+    CompletionResponse:
+      type: object
+      properties:
+        output:
+          oneOf:
+          - type: string
+          - type: object
+            additionalProperties: true
+          description: Generated text or structured output.
   securitySchemes:
     bearerAuth:
       type: http

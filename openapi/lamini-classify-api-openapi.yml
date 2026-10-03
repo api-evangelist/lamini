@@ -69,6 +69,15 @@ paths:
                 $ref: '#/components/schemas/ClassifyResponse'
 components:
   schemas:
+    ClassifyResponse:
+      type: object
+      properties:
+        classification:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+          description: Scored class labels per prompt.
     ClassifyRequest:
       type: object
       required:
@@ -90,15 +99,6 @@ components:
           - number
           - 'null'
           description: Confidence threshold for a prediction.
-    ClassifyResponse:
-      type: object
-      properties:
-        classification:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-          description: Scored class labels per prompt.
   securitySchemes:
     bearerAuth:
       type: http
