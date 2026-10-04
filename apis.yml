@@ -34,6 +34,9 @@ accessModel:
   generated: '2026-09-03'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/lamini.png
+x-docs-platform: mkdocs
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-10-03
 tags:
 - Artificial Intelligence
 - LLM
@@ -161,6 +164,9 @@ apis:
   - type: Documentation
     url: https://docs.lamini.ai/api/
 common:
+- type: CapabilityMap
+  url: capabilities/lamini-capability-edges.yml
+  name: Lamini Business Capability Map
 - type: AgenticAccess
   url: agentic-access/lamini-agentic-access.yml
 - type: DomainSecurity
