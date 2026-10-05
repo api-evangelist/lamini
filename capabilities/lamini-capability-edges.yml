@@ -1,0 +1,42 @@
+slug: lamini
+provider: Lamini
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Fine Tuning
+  spec_file: lamini-fine-tuning-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.85
+  evidence: POST /v1/train  Submit a tuning job; GET /v1/train/jobs  List tuning jobs; schema TrainJob
+  reason: Submitting, listing, cancelling and resuming model training/tuning jobs is explicitly AI/ML
+    model lifecycle and MLOps.
+- tag: Inference
+  spec_file: lamini-inference-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.72
+  evidence: POST /v1/completions  Generate a completion
+  reason: LLM completion/streaming inference endpoints are model serving within AI/ML lifecycle management;
+    no business-domain capability is implied by the operations.
+- tag: Classify
+  spec_file: lamini-classify-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: POST /v1/classifier/{model_id}/classification  Classify text
+  reason: Serving a trained classifier model for text classification is ML model operation/serving, which
+    falls under Artificial Intelligence Management; the specific downstream business use is not stated.
