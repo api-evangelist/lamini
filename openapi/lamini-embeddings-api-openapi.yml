@@ -37,16 +37,6 @@ paths:
                 $ref: '#/components/schemas/EmbeddingResponse'
 components:
   schemas:
-    EmbeddingResponse:
-      type: object
-      properties:
-        embedding:
-          type: array
-          items:
-            type: array
-            items:
-              type: number
-          description: One embedding vector per input prompt.
     EmbeddingRequest:
       type: object
       required:
@@ -59,6 +49,16 @@ components:
             items:
               type: string
           description: One or more texts to embed.
+    EmbeddingResponse:
+      type: object
+      properties:
+        embedding:
+          type: array
+          items:
+            type: array
+            items:
+              type: number
+          description: One embedding vector per input prompt.
   securitySchemes:
     bearerAuth:
       type: http
