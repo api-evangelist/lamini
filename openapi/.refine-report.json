@@ -1,28 +1,28 @@
 {
   "provider": "lamini",
   "sources": [
-    "_original/lamini-openapi.yml"
+    "_original/lamini-openapi.json"
   ],
   "outputs": [
-    "lamini-classify-api-openapi.yml",
+    "lamini-classifier-api-openapi.yml",
+    "lamini-completions-api-openapi.yml",
     "lamini-embeddings-api-openapi.yml",
-    "lamini-fine-tuning-api-openapi.yml",
-    "lamini-inference-api-openapi.yml",
-    "lamini-platform-api-openapi.yml"
+    "lamini-memory-rag-api-openapi.yml",
+    "lamini-model-management-api-openapi.yml",
+    "lamini-train-api-openapi.yml"
   ],
   "archived": [],
-  "errors": [],
+  "errors": [
+    "lamini-openapi.json: dangling $ref: #/components/schemas/MemoryRagAddIndexPayload",
+    "lamini-openapi.json: dangling $ref: #/components/schemas/MemoryRagCompletionsPayload",
+    "lamini-openapi.json: dangling $ref: #/components/schemas/MemoryRagSuggestionsPayload"
+  ],
   "warnings": [],
   "notes": [
     "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
-    "lamini-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
-    "apis.yml register: already-registered"
+    "lamini-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "lamini-openapi.json: declared missing tag: memory rag",
+    "apis.yml register: written (+5 apis, 6 total)"
   ],
-  "skipped": [
-    "lamini-classify-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "lamini-embeddings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "lamini-fine-tuning-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "lamini-inference-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "lamini-platform-api-openapi.yml: previously refined output, superseded by openapi/_original/"
-  ]
+  "skipped": []
 }

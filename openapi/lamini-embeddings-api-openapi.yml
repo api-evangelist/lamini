@@ -1,66 +1,131 @@
 openapi: 3.2.0
 info:
-  title: Lamini Platform Embeddings API
-  description: REST API for the Lamini enterprise LLM platform covering inference (completions), fine-tuning and Memory Tuning jobs, classification, and embeddings over open base and tuned models. All requests are authenticated with a Bearer API key and served from https://api.lamini.ai. Endpoints and request fields are derived from the official Lamini Python client (github.com/lamini-ai/lamini) and the Lamini REST API documentation.
-  termsOfService: https://www.lamini.ai/terms
-  contact:
-    name: Lamini Support
-    url: https://www.lamini.ai
-  version: '1.0'
-servers:
-- url: https://api.lamini.ai
+  title: Lamini Embeddings API
+  description: LLM inference and tuning for the enterprise. Factual LLMs. Classifier and embeddings. Deployed anywhere in 10 min.
+  version: 1.13.6
 security:
-- bearerAuth: []
+- APIKeyAuth: []
 tags:
 - name: Embeddings
-  description: Text embedding generation.
+  description: Get vector embeddings for your data.
 paths:
   /v1/embedding:
     post:
-      operationId: createEmbedding
       tags:
       - Embeddings
-      summary: Generate embeddings
-      description: Encode one or more text prompts into embedding vectors for similarity search, retrieval, and indexing.
+      summary: Get the vector embedding for a given prompt
+      operationId: embedding_v1_embedding_post
       requestBody:
-        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EmbeddingRequest'
+              $ref: '#/components/schemas/EmbeddingParams'
+        required: true
       responses:
         '200':
-          description: Generated embedding vectors.
+          description: Successful response
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/EmbeddingResponse'
+              example:
+                embedding:
+                - 0.013080810196697712
+                - -0.05404408276081085
+                - 0.0183291956782341
+                - -0.03727744519710541
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key Auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        description: API key for authentication
 components:
   schemas:
-    EmbeddingRequest:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    EmbeddingParams:
+      properties:
+        prompt:
+          anyOf:
+          - type: string
+          - items:
+              type: string
+            type: array
+          title: Prompt
+          description: The input text to embed. Can be a single string or a list of strings.
+          example: What is the capital of France?
+        model_name:
+          type: string
+          title: Model Name
+          description: The name of the embedding model to use. If not provided, a default model will be used.
+          default: sentence-transformers/all-MiniLM-L6-v2
+        latency_sensitive:
+          type: boolean
+          title: Latency Sensitive
+          description: Whether the request is latency-sensitive. If true, faster processing may be prioritized.
+          default: true
       type: object
       required:
       - prompt
+      title: EmbeddingParams
+    ValidationError:
       properties:
-        prompt:
-          oneOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-          description: One or more texts to embed.
-    EmbeddingResponse:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    EmbeddingResponse:
       properties:
         embedding:
-          type: array
-          items:
-            type: array
-            items:
+          anyOf:
+          - items:
               type: number
-          description: One embedding vector per input prompt.
+            type: array
+          - items:
+              items:
+                type: number
+              type: array
+            type: array
+          title: Embedding
+      type: object
+      required:
+      - embedding
+      title: EmbeddingResponse
   securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      description: 'Lamini platform API key passed as Authorization: Bearer <API_KEY>. Requests may also include a Lamini-Version header.'
+    APIKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Enter your API token. Get your API key from http://localhost:5001/account

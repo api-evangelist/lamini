@@ -1,0 +1,12 @@
+{
+ "url": "https://docs.lamini.ai/openapi.json",
+ "final": "https://docs.lamini.ai/openapi.json",
+ "status": 200,
+ "content_type": "application/json; charset=utf-8",
+ "bytes": 110394,
+ "sha256": "4e8e5752618e4772050161eb90bc0d8369a784a08b04aa904c77e96fce0a833b",
+ "fetched_at": "2026-10-19",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "re-archived: the provider's current document replaced a stale archive (roadmap#793); the old files are in openapi/_superseded/2026-10-19-stale"
+}

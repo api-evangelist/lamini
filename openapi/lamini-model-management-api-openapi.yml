@@ -1,0 +1,193 @@
+openapi: 3.2.0
+info:
+  title: Lamini model management API
+  description: LLM inference and tuning for the enterprise. Factual LLMs. Classifier and embeddings. Deployed anywhere in 10 min.
+  version: 1.13.6
+security:
+- APIKeyAuth: []
+tags:
+- name: Model Management
+  description: Manages models stored on your Lamini Platform.
+paths:
+  /v1alpha/downloaded_models/:
+    get:
+      tags:
+      - Model Management
+      summary: All Models
+      operationId: all_models_v1alpha_downloaded_models__get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        description: API key for authentication
+    post:
+      tags:
+      - Model Management
+      summary: Start Download Models
+      operationId: start_download_models_v1alpha_downloaded_models__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key Auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        description: API key for authentication
+  /v1alpha/downloaded_models:
+    get:
+      tags:
+      - Model Management
+      summary: All Models
+      operationId: all_models_v1alpha_downloaded_models_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        description: API key for authentication
+    post:
+      tags:
+      - Model Management
+      summary: Start Download Models
+      operationId: start_download_models_v1alpha_downloaded_models_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key Auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        description: API key for authentication
+components:
+  schemas:
+    PostResponse:
+      properties:
+        model_name:
+          type: string
+          title: Model Name
+        model_type:
+          $ref: '#/components/schemas/ModelType'
+        status:
+          type: string
+          title: Status
+      type: object
+      required:
+      - model_name
+      - model_type
+      - status
+      title: PostResponse
+      description: The payload of the POST request to downloaded_models API
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    PostPayload:
+      properties:
+        hf_model_name:
+          type: string
+          title: Hf Model Name
+        model_type:
+          allOf:
+          - $ref: '#/components/schemas/ModelType'
+          default: transformer
+        private_hf_token:
+          type: string
+          title: Private Hf Token
+      type: object
+      required:
+      - hf_model_name
+      title: PostPayload
+      description: The payload of the POST request to downloaded_models API
+    ModelType:
+      enum:
+      - transformer
+      - embedding
+      title: ModelType
+      description: This must be consistent with the db/migrations table definition's MODEL_TYPE type.
+  securitySchemes:
+    APIKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Enter your API token. Get your API key from http://localhost:5001/account

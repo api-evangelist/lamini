@@ -1,0 +1,590 @@
+openapi: 3.2.0
+info:
+  title: Lamini Classifier API
+  description: LLM inference and tuning for the enterprise. Factual LLMs. Classifier and embeddings. Deployed anywhere in 10 min.
+  version: 1.13.6
+security:
+- APIKeyAuth: []
+tags:
+- name: classifier
+  description: Classify text into categories.
+paths:
+  /v2/classifier/initialize:
+    post:
+      tags:
+      - classifier
+      summary: Initialize
+      description: 'Create the project,
+
+        kickoff generate data,
+
+        create the project data directory'
+      operationId: initialize_v2_classifier_initialize_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClassifierV2InitializePayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key Auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        description: API key for authentication
+  /v2/classifier/add:
+    post:
+      tags:
+      - classifier
+      summary: Add
+      operationId: add_v2_classifier_add_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClassifierV2AddPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key Auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        description: API key for authentication
+  /v2/classifier/train:
+    post:
+      tags:
+      - classifier
+      summary: Train
+      operationId: train_v2_classifier_train_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClassifierV2TrainPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key Auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        description: API key for authentication
+  /v2/classifier/register:
+    post:
+      tags:
+      - classifier
+      summary: Register
+      operationId: register_v2_classifier_register_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClassifierV2RegisterPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key Auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        description: API key for authentication
+  /v2/classifier/update_job:
+    post:
+      tags:
+      - classifier
+      summary: Update Job
+      operationId: update_job_v2_classifier_update_job_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClassifierV2UpdateJobPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key Auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        description: API key for authentication
+  /v2/classifier/{job_id}/status:
+    get:
+      tags:
+      - classifier
+      summary: Status
+      operationId: status_v2_classifier__job_id__status_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          title: Job Id
+        name: job_id
+        in: path
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        description: API key for authentication
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key Auth: []
+  /v2/classifier/{model_id}/classify:
+    post:
+      tags:
+      - classifier
+      summary: Classify
+      operationId: classify_v2_classifier__model_id__classify_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          title: Model Id
+        name: model_id
+        in: path
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        description: API key for authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClassifierV2ClassifyPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key Auth: []
+  /v2/classifier/{project_name}/models:
+    get:
+      tags:
+      - classifier
+      summary: List Models With Metadata For Project
+      operationId: list_models_with_metadata_for_project_v2_classifier__project_name__models_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          title: Project Name
+        name: project_name
+        in: path
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        description: API key for authentication
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key Auth: []
+  /v2/classifier/{project_name}/datasets:
+    get:
+      tags:
+      - classifier
+      summary: List Datasets For Project
+      operationId: list_datasets_for_project_v2_classifier__project_name__datasets_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          title: Project Name
+        name: project_name
+        in: path
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        description: API key for authentication
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key Auth: []
+  /v2/classifier/{project_name}/{dataset_name}/download:
+    get:
+      tags:
+      - classifier
+      summary: Download Dataset For Project
+      operationId: download_dataset_for_project_v2_classifier__project_name___dataset_name__download_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          title: Project Name
+        name: project_name
+        in: path
+      - required: true
+        schema:
+          type: string
+          title: Dataset Name
+        name: dataset_name
+        in: path
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        description: API key for authentication
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key Auth: []
+  /v2/classifier/{project_name}/{dataset_name}:
+    delete:
+      tags:
+      - classifier
+      summary: Delete Datasets For Project
+      operationId: delete_datasets_for_project_v2_classifier__project_name___dataset_name__delete
+      parameters:
+      - required: true
+        schema:
+          type: string
+          title: Project Name
+        name: project_name
+        in: path
+      - required: true
+        schema:
+          type: string
+          title: Dataset Name
+        name: dataset_name
+        in: path
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        description: API key for authentication
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key Auth: []
+  /v2/classifier/projects:
+    get:
+      tags:
+      - classifier
+      summary: List Projects For User
+      operationId: list_projects_for_user_v2_classifier_projects_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - API Key Auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        description: API key for authentication
+  /v2/classifier/{project_name}/jobs:
+    get:
+      tags:
+      - classifier
+      summary: List Jobs For Project
+      operationId: list_jobs_for_project_v2_classifier__project_name__jobs_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          title: Project Name
+        name: project_name
+        in: path
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        description: API key for authentication
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key Auth: []
+components:
+  schemas:
+    ClassifierV2TrainPayload:
+      properties:
+        name:
+          type: string
+          title: Name
+        classifier_train_job_id:
+          type: string
+          title: Classifier Train Job Id
+      type: object
+      required:
+      - name
+      title: ClassifierV2TrainPayload
+    ClassifierV2InitializePayload:
+      properties:
+        classes:
+          type: object
+          title: Classes
+        name:
+          type: string
+          title: Name
+        model_name:
+          type: string
+          title: Model Name
+        examples:
+          type: object
+          title: Examples
+      type: object
+      required:
+      - classes
+      - name
+      - model_name
+      title: ClassifierV2InitializePayload
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ClassifierV2UpdateJobPayload:
+      properties:
+        job_id:
+          type: string
+          title: Job Id
+        status:
+          type: string
+          title: Status
+      type: object
+      required:
+      - job_id
+      - status
+      title: ClassifierV2UpdateJobPayload
+    ClassifierV2RegisterPayload:
+      properties:
+        project_id:
+          type: string
+          title: Project Id
+        model_id:
+          type: string
+          title: Model Id
+        job_id:
+          type: string
+          title: Job Id
+      type: object
+      required:
+      - project_id
+      - model_id
+      - job_id
+      title: ClassifierV2RegisterPayload
+    ClassifierV2ClassifyPayload:
+      properties:
+        prompt:
+          anyOf:
+          - type: string
+          - items:
+              type: string
+            type: array
+          title: Prompt
+        top_n:
+          type: integer
+          title: Top N
+        threshold:
+          type: number
+          title: Threshold
+        metadata:
+          type: boolean
+          title: Metadata
+      type: object
+      required:
+      - prompt
+      title: ClassifierV2ClassifyPayload
+    ClassifierV2AddPayload:
+      properties:
+        data:
+          type: object
+          title: Data
+        dataset_name:
+          type: string
+          title: Dataset Name
+        project_name:
+          type: string
+          title: Project Name
+      type: object
+      required:
+      - data
+      - dataset_name
+      - project_name
+      title: ClassifierV2AddPayload
+  securitySchemes:
+    APIKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Enter your API token. Get your API key from http://localhost:5001/account
