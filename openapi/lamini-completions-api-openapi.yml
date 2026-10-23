@@ -420,3 +420,9 @@ components:
       in: header
       name: Authorization
       description: Enter your API token. Get your API key from http://localhost:5001/account
+x-provenance:
+  method: harvested
+  publisher: Lamini
+  source: https://docs.lamini.ai/openapi.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
